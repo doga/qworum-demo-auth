@@ -1,4 +1,3 @@
-import { items } from "./modules/items.mjs"; // Articles on sale
 import { QworumScript, Qworum } from './deps.mjs';
 
 const
@@ -16,41 +15,66 @@ Try      = QworumScript.Try.build,
 // Script
 Script = QworumScript.Script.build;
 
-showItems();
+// console.debug('hi');
 
-function showItems() {
-  // console.debug(`[home] showing ${items.length} items`);
-  const contentArea = document.getElementById('items');
+await build();
 
-  for (let itemId = 0; itemId < items.length; itemId++) {
-    // console.debug(`[home] showing item ${itemId}`);
-    const
-    item   = items[itemId],
-    li     = document.createElement('li'),
-    button = document.createElement('button');
+async function build() {
+  const 
+  listUi         = document.getElementById('list'),
+  signInButton   = document.getElementById('sign-in-button');
 
-    button.className = 'item-title';
-    button.innerText = item.title;
-    li.appendChild(button);
-    contentArea.appendChild(li);
-
-    button.addEventListener('click', async () => {
-      await Qworum.eval(
-        Script(
+  signInButton.addEventListener('click', async () => {
+    await Qworum.eval(
+      Script(
+        Try(
           Sequence(
-            // Try(
-            //   Call(
-            //     '@', '../view-item/', 
-            //     { name: 'item id', value: Json(itemId) }
-            //   ),
-            //   [{catch: [], do: Goto()}]
-            // ),
-            // Goto(),
-            Call('@', '../view-item/', { name: 'item id', value: Json(itemId) }),
+            // Sign in and store user info
+            Data(
+              ['@', 'signed-in user'], Call('@', '../sign-in/'),
+            ),
+
+            // Return to current URL
             Goto(),
-          )
-        )
-      );
-    });
+          ),
+
+          // Unset user info if sign-in was cancelled by user
+          [{
+            catch: ['cancelled'],
+            do   : Goto()
+          }]
+        ),
+      )
+    );
+  });
+
+  try {
+    const userdata = await Qworum.getData(['@', 'signed-in user']);
+    console.debug(`data: ${userdata}`);
+
+    if (userdata) {
+      const
+      credUi         = document.createElement('md-list-item'),
+      headline       = document.createElement('div'),
+      // supportingText = document.createElement('div'),
+      icon           = document.createElement('md-icon')
+      ;
+  
+      headline.setAttribute('slot', 'headline');
+      headline.appendChild(document.createTextNode(userdata.value.username));
+      // supportingText.setAttribute('slot', 'supporting-text');
+      // supportingText.appendChild(document.createTextNode(userdata.value.username));
+      icon.setAttribute('slot', 'end');
+      icon.appendChild(document.createTextNode('shield_person'));
+      credUi.appendChild(headline);
+      // credUi.appendChild(supportingText);
+      credUi.appendChild(icon);
+  
+      listUi.appendChild(credUi);
+    }
+
+  } catch (error) {
+    console.debug(`error while reading the current user info: ${error}`);
   }
+
 }

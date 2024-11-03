@@ -1,35 +1,70 @@
 ![Qworum logo and name](https://raw.githubusercontent.com/doga/qworum-website/master/build/assets/images/logos/Qworum-logo-and-name.svg "Qworum logo and name")
 
-# Basic template for Qworum-based web applications
+# Demo of a Qworum service that does user authentication
 
-This is a template for a website that uses [Qworum](https://qworum.net)'s advanced web browser capabilities.
+## Qworum API endpoints
 
-This template is:
+- the `home` endpoint, which is a test application.
+- the `sign-in` endpoint, called by `home`.
+- the `sign-up` endpoint, called by `sign-in`.
 
-- _Multi-language_, with language-independent API endpoint paths.
-- _Versioned_. Indeed, Qworum applications are structured as Qworum APIs, and versioned APIs ensure that other applications that depend on this one will not break after an update.
+## Create user credentials
 
-This project has a [companion project](https://github.com/doga/qworum-application-template-with-semantic-data) that uses semantic data (RDF) instead of JSON.
+Use this script to populate `dist/data/credentials.json`.
 
-## The "Hello World" Qworum application
+First install these:
 
-This website implements a Qworum API that has 2 endpoints:
+1. [Deno 2+](https://deno.com/)
+1. [MDRB](https://jsr.io/@andrewbrey/mdrb)
 
-- the `home` endpoint, which is an application, and
-- the `view-item` endpoint, called by `home`.
+Then run this:
 
-Here is the directory structure:
+```shell
+mdrb --mode isolated https://raw.githubusercontent.com/doga/qworum-demo-auth/master/README.md
+```
 
-- Directories with 2-letter names such as `en` contain language-specific versions of the API endpoints.
-- `assets` contains resources used by the web pages.
-- All other directories (`home`, `view-item`) are the official endpoint paths; they are only used for redirecting API calls to language-specific endpoint versions.
+This will run the following script:
 
-## To do
+<details data-mdrb>
+<summary>Create SHA-256 digests from cleartext passwords.</summary>
+<pre>
+description = '''
+This script will not touch the filesystem.
+'''
+</pre>
+</details>
 
-Implement a login endpoint:
+```javascript
+const
+algorithm = 'SHA-256',
+prompt    = 'Password? (leave empty to exit)',
 
-- [Launching a New Tab for OpenID Connect Login](https://g.co/gemini/share/e260edfb5045)
-- [Common Login Protocols for Business Applications](https://g.co/gemini/share/2e761f775cd6)
+digest = async (message) => {
+  const 
+  msgUint8   = new TextEncoder().encode(message),                 // encode as (utf-8) Uint8Array
+  hashBuffer = await crypto.subtle.digest(algorithm, msgUint8),   // hash the message
+  hashArray  = Array.from(new Uint8Array(hashBuffer)),            // convert buffer to byte array
+  hashHex    = hashArray
+    .map((b) => b.toString(16).padStart(2, "0"))
+    .join(""); // convert bytes to hex string
+  return hashHex;
+};
+
+while(true){
+  const password       = await $.prompt(prompt); if(password.length === 0) break;
+  const passwordDigest = await digest(password);
+  console.info(`Password:\n  ${password}\n${algorithm} digest in hexadecimals:\n  ${passwordDigest}\n`);
+}
+```
+
+Sample output:
+
+```text
+Password:
+  password
+SHA-256 digest in hexadecimals:
+  5e884898da28047151d0e56f8dc6292773603d0d6aabbdd62a11ef721d1542d8
+```
 
 ## License
 

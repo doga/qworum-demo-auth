@@ -15,20 +15,33 @@
       import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
       document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
-    <title>Auth test</title>
+    <title>Sign in</title>
     <link href="/assets/style/main.css" rel="stylesheet">
   </head>
   <body>
-    <h1 class="md-typescale-display-medium">Auth test</h1>
+    <h1 class="md-typescale-display-medium">Sign in</h1>
 
+    <!-- <p class="md-typescale-body-medium">Sign in</p> -->
+
+    <md-outlined-text-field id="username" label="User name"></md-outlined-text-field>
+    <md-outlined-text-field id="password" label="Password" type="password"></md-outlined-text-field>
+
+    <br><br>
+    
+    <!-- <md-outlined-button type="reset">Reset</md-outlined-button> -->
     <md-outlined-button id="sign-in-button">Sign in</md-outlined-button>
+    <br><br>
+    <md-outlined-button id="cancel-button">Cancel sign-in</md-outlined-button>
 
-    <h2>Signed in as:</h2>
+
+    <h2>Known usernames and their hashed passwords:</h2>
+
     <md-list
       id="list" 
       style="max-width: 500px;"
     >
     </md-list>
+
 
     <!-- <style>
       form {
@@ -39,7 +52,7 @@
       }
     </style> -->
 
-    <script type="module" src="/assets/js/home.js"></script>
+    <script type="module" src="/assets/js/sign-in.js"></script>
 
   </body>
 </html>

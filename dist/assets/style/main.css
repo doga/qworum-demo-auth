@@ -1,4 +1,13 @@
-body {
+body {padding: 10%;}
+
+/* :root {
+  --md-sys-color-primary: olive;
+  --md-sys-color-secondary: tomato;
+  --md-ref-typeface-brand: 'Open Sans';
+  --md-ref-typeface-plain: system-ui;
+} */
+
+/* body {
   font-size: 200%;
   padding: 3em;
 }
@@ -29,4 +38,4 @@ li {
 
 .item-title  {
   text-transform: capitalize;
-}
+} */
