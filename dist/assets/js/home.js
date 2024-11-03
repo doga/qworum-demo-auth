@@ -71,6 +71,8 @@ async function build() {
       credUi.appendChild(icon);
   
       listUi.appendChild(credUi);
+
+      document.querySelector('.hide').className = 'show';
     }
 
   } catch (error) {

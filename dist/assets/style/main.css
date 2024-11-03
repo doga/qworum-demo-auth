@@ -1,5 +1,13 @@
 body {padding: 10%;}
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 /* :root {
   --md-sys-color-primary: olive;
   --md-sys-color-secondary: tomato;
