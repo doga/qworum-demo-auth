@@ -27,7 +27,7 @@ async function build() {
   cancelButton = document.getElementById('cancel-button'),
   creds        = await Credentials.read(),
   listUi       = document.getElementById('list');
-  console.debug('creds',creds);
+  // console.debug('creds',creds);
 
   cancelButton.addEventListener('click', async (event) => {
     event.preventDefault();
@@ -51,6 +51,8 @@ async function build() {
       return;
     }
 
+    console.debug(`user:`,cred);
+
     const passwordDigest = await digest(password, cred.passwordDigestAlgo);
     if(passwordDigest !== cred.passwordDigest){
       console.debug(`Wrong password.`);
@@ -58,9 +60,11 @@ async function build() {
     }
 
     console.debug(`user is ${username}`);
+    const user = Json({username, displayName: cred.displayName});
+    await Qworum.setData(['@', 'profile'], user);
     await Qworum.eval(
       Script(
-        Return(Json({username}))
+        Return(user)
       )
     );
 

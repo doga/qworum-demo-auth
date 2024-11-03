@@ -15,32 +15,22 @@
       import {styles as typescaleStyles} from '@material/web/typography/md-typescale-styles.js';
       document.adoptedStyleSheets.push(typescaleStyles.styleSheet);
     </script>
-    <title>Sign in</title>
+    <title>User profile</title>
     <link href="/assets/style/main.css" rel="stylesheet">
   </head>
   <body>
-    <h1 class="md-typescale-display-medium">Sign in</h1>
-
-    <!-- <p class="md-typescale-body-medium">Sign in</p> -->
-
-    <md-outlined-text-field id="username" label="User name"></md-outlined-text-field>
-    <md-outlined-text-field id="password" label="Password" type="password"></md-outlined-text-field>
-
-    <br><br>
     
-    <!-- <md-outlined-button type="reset">Reset</md-outlined-button> -->
-    <md-outlined-button id="cancel-button">Cancel</md-outlined-button>
-    <!-- <br><br> -->
-    <md-outlined-button id="sign-in-button">Sign in</md-outlined-button>
+    <section id="user-section">
+      <h1 class="md-typescale-display-medium">User profile</h1>
 
-
-    <h2>Known usernames and their hashed passwords:</h2>
-
-    <md-list
-      id="list" 
-      style="max-width: 500px;"
-    >
-    </md-list>
+      <md-list
+        id="list" 
+        style="max-width: 500px;"
+      >
+      </md-list>
+      <br>
+      <md-outlined-button id="return-button">Return</md-outlined-button>
+    </section>
 
 
     <!-- <style>
@@ -52,7 +42,7 @@
       }
     </style> -->
 
-    <script type="module" src="/assets/js/sign-in.js"></script>
+    <script type="module" src="/assets/js/view-profile.js"></script>
 
   </body>
 </html>

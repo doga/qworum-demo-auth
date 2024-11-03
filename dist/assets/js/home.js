@@ -30,15 +30,16 @@ async function build() {
         Try(
           Sequence(
             // Sign in and store user info
-            Data(
-              ['@', 'signed-in user'], Call('@', '../sign-in/'),
-            ),
+            Call('@', '../sign-in/'),
+            // Data(
+            //   ['@', 'user'], Call('@', '../sign-in/'),
+            // ),
 
             // Return to current URL
             Goto(),
           ),
 
-          // Unset user info if sign-in was cancelled by user
+          // Sign-in was cancelled by user
           [{
             catch: ['cancelled'],
             do   : Goto()
@@ -49,25 +50,25 @@ async function build() {
   });
 
   try {
-    const userdata = await Qworum.getData(['@', 'signed-in user']);
-    console.debug(`data: ${userdata}`);
+    const userdata = await Qworum.getData(['@', 'profile']);
+    // console.debug(`data: ${userdata}`);
 
     if (userdata) {
       const
       credUi         = document.createElement('md-list-item'),
       headline       = document.createElement('div'),
-      // supportingText = document.createElement('div'),
+      supportingText = document.createElement('div'),
       icon           = document.createElement('md-icon')
       ;
   
       headline.setAttribute('slot', 'headline');
-      headline.appendChild(document.createTextNode(userdata.value.username));
-      // supportingText.setAttribute('slot', 'supporting-text');
-      // supportingText.appendChild(document.createTextNode(userdata.value.username));
+      headline.appendChild(document.createTextNode(userdata.value.displayName));
+      supportingText.setAttribute('slot', 'supporting-text');
+      supportingText.appendChild(document.createTextNode(`ID: ${userdata.value.username}`));
       icon.setAttribute('slot', 'end');
       icon.appendChild(document.createTextNode('shield_person'));
       credUi.appendChild(headline);
-      // credUi.appendChild(supportingText);
+      credUi.appendChild(supportingText);
       credUi.appendChild(icon);
   
       listUi.appendChild(credUi);

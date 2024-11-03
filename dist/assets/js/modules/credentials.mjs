@@ -20,17 +20,20 @@ class Credential {
 
   /**
    * @param {string} username
+   * @param {string} displayName
    * @param {string} passwordDigest In hexa
    * @param {(string | undefined)} passwordDigestAlgo SHA-256 if omitted
    */
-  constructor(username, passwordDigest, passwordDigestAlgo) {
+  constructor(username, displayName, passwordDigest, passwordDigestAlgo) {
     this.username           = username;
+    this.displayName        = displayName;
     this.passwordDigest     = passwordDigest;
-    this.passwordDigestAlgo = passwordDigestAlgo || defaultDigestAlgorithm
+    this.passwordDigestAlgo = passwordDigestAlgo || defaultDigestAlgorithm;
   }
   toJSON(){
     return {
-      username: this.username,
+      username   : this.username,
+      displayName: this.displayName,
       password: {
         digest: {
           value    : this.passwordDigest,
@@ -74,6 +77,7 @@ class Credentials {
     this.credentials.push(
       new Credential(
         cred.username, 
+        cred.displayName, 
         cred.password.digest.value, 
         cred.password.digest.algorithm
       )

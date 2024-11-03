@@ -1,3 +1,13 @@
+:root {
+  --md-icon-size: 48px;
+  /* 
+  --md-sys-color-primary: olive;
+  --md-ref-typeface-brand: 'Open Sans';
+  --md-sys-color-secondary: tomato;
+  --md-ref-typeface-plain: system-ui; 
+  */
+}
+
 body {padding: 10%;}
 
 .hide {
