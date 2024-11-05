@@ -70,37 +70,37 @@ async function build() {
 
   });
 
-  for (const cred of creds.credentials) {
-    // console.debug(`[home] showing item ${i}`);
+  // for (const cred of creds.credentials) {
+  //   // console.debug(`[home] showing item ${i}`);
 
-  // <md-list-item
-  //     type="link"
-  //     href="https://google.com/search?q=buy+kiwis&tbm=shop"
-  //     target="_blank">
-  //   <div slot="headline">Shop for Kiwis</div>
-  //   <div slot="supporting-text">This will link you out in a new tab</div>
-  //   <md-icon slot="end">open_in_new</md-icon>
-  // </md-list-item>
+  // // <md-list-item
+  // //     type="link"
+  // //     href="https://google.com/search?q=buy+kiwis&tbm=shop"
+  // //     target="_blank">
+  // //   <div slot="headline">Shop for Kiwis</div>
+  // //   <div slot="supporting-text">This will link you out in a new tab</div>
+  // //   <md-icon slot="end">open_in_new</md-icon>
+  // // </md-list-item>
 
-    const
-    credUi         = document.createElement('md-list-item'),
-    headline       = document.createElement('div'),
-    supportingText = document.createElement('div'),
-    icon           = document.createElement('md-icon')
-    ;
+  //   const
+  //   credUi         = document.createElement('md-list-item'),
+  //   headline       = document.createElement('div'),
+  //   supportingText = document.createElement('div'),
+  //   icon           = document.createElement('md-icon')
+  //   ;
 
-    headline.setAttribute('slot', 'headline');
-    headline.appendChild(document.createTextNode(cred.username));
-    supportingText.setAttribute('slot', 'supporting-text');
-    supportingText.appendChild(document.createTextNode(cred.passwordDigest));
-    // icon.setAttribute('slot', 'end');
-    icon.appendChild(document.createTextNode('shield_person'));
-    credUi.appendChild(headline);
-    credUi.appendChild(supportingText);
-    credUi.appendChild(icon);
+  //   headline.setAttribute('slot', 'headline');
+  //   headline.appendChild(document.createTextNode(cred.username));
+  //   supportingText.setAttribute('slot', 'supporting-text');
+  //   supportingText.appendChild(document.createTextNode(cred.passwordDigest));
+  //   // icon.setAttribute('slot', 'end');
+  //   icon.appendChild(document.createTextNode('shield_person'));
+  //   credUi.appendChild(headline);
+  //   credUi.appendChild(supportingText);
+  //   credUi.appendChild(icon);
 
-    listUi.appendChild(credUi);
+  //   listUi.appendChild(credUi);
 
-  }
+  // }
 
 }

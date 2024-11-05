@@ -8,7 +8,10 @@
   */
 }
 
-body {padding: 10%;}
+body {
+  padding: 10%;
+  /* background-color: lightblue; */
+}
 
 .hide {
   display: none;

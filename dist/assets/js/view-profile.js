@@ -27,6 +27,7 @@ async function build() {
   listUi       = document.getElementById('list'),
   returnScript = Script(Return(Json({}))),
   profile      = await Qworum.getData(['@', 'profile']);
+
   console.debug(`profile: ${profile}`);
   console.debug(`profile.value.displayName: ${profile.value.displayName}`);
 
